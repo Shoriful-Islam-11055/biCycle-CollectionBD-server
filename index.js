@@ -55,14 +55,7 @@ async function run() {
       res.send(product);
     });
 
-    //update user
-    // app.get('/user/:id', async(req, res) =>{
-    //   const id = req.params.id;
-    //   const query = {_id: ObjectId(id)};
-    //   const result = await userCollection.findOne(query);
-    //   res.send(result);
-    // })
-	  
+    
     //update quantity
     app.get('/user/:id', async(req, res) =>{
       const id = req.params.id;
@@ -83,6 +76,14 @@ async function run() {
       };
       const result = await userCollection.updateOne(filter, updateDoc, options);
       res.send(result);
+    })
+
+    //myItems
+    app.get('/items', async(req, res) =>{
+      const email = req.query.email;
+      const query = {email : email}
+      const items = await userCollection.find(query).toArray();
+      res.send(items);
     })
   
     } finally {
