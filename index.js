@@ -38,6 +38,22 @@ async function run() {
          const user = await userCollection.findOne(query)
          res.send(user);
      })
+
+     //ADD Products
+     app.post("/user", async(req, res) => {
+      const newUser = req.body;
+      //insert data in database
+      const product = await userCollection.insertOne(newUser);
+      res.send(product);
+    });
+
+    //delete a product
+    app.delete('/user/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: ObjectId(id)}
+      const product = await userCollection.deleteOne(query);
+      res.send(product);
+    });
   
     } finally {
       //await clint.close();
